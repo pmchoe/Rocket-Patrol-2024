@@ -9,6 +9,9 @@ class Rocket extends Phaser.GameObjects.Sprite {
         this.moveSpeed = 2;         // rocket speed in pixels/frame
 
         this.sfxShot = scene.sound.add('sfx-shot');
+
+        // adds rocket sprite to physics engine
+        scene.physics.add.existing(this);
     }
 
     update() {

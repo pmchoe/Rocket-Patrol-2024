@@ -64,6 +64,10 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+
+        this.physics.add.collider(this.p1Rocket, this.ship01, this.handleCollision, null, this);
+        this.physics.add.collider(this.p1Rocket, this.ship02, this.handleCollision, null, this);
+        this.physics.add.collider(this.p1Rocket, this.ship03, this.handleCollision, null, this);
     }
 
     update() {
@@ -85,9 +89,8 @@ class Play extends Phaser.Scene {
             this.ship02.update();
             this.ship03.update();
         }
-        
 
-        // check collisions
+        /*// check collisions
         if(this.checkCollision(this.p1Rocket, this.ship01)) {
             console.log('kaboom ship01');
             this.p1Rocket.reset();
@@ -102,10 +105,15 @@ class Play extends Phaser.Scene {
             console.log('kaboom ship03');
             this.p1Rocket.reset();
             this.shipExplode(this.ship03);
-        }
+        }*/
     }
 
-    checkCollision(rocket, ship) {
+    handleCollision(rocket, ship) {
+        rocket.reset();
+        this.shipExplode(ship);
+    }
+
+    /*checkCollision(rocket, ship) {
         // simple AABB checking
         if(rocket.x < ship.x + ship.width &&
             rocket.x + rocket.width > ship.x &&
@@ -115,7 +123,7 @@ class Play extends Phaser.Scene {
             } else {
                 return false;
             }
-    }
+    }*/
 
     shipExplode(ship) {
         // temporarily hide ship
